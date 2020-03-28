@@ -29,4 +29,5 @@ class Core {
             echo "404";
         }
     }
+    
 }
