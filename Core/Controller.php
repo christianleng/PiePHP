@@ -11,7 +11,7 @@ class Controller {
         $a = array('Controller\\', 'Controller');
         $b = "";
         
-        $template = trim(implode (DIRECTORY_SEPARATOR,[dirname(__DIR__), 'src', 'View', str_replace($a,$b,basename(get_class($this))), $view])) . '.php';
+        $template = implode(DIRECTORY_SEPARATOR,[dirname(__DIR__), 'src', 'View', str_replace($a,$b,basename(get_class($this))), $view]) . '.php';
         if (file_exists($template)) {
             ob_start();
             require_once ($template);
