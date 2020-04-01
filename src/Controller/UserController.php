@@ -34,10 +34,7 @@ class UserController extends \Core\Controller{
         // echo self::render("register");
         echo '<pre>', var_dump($_POST), '</pre>';
         echo '<pre>', var_dump($post), '</pre>';
-        $postsecurise = Request::security($_POST);       //securite des donne
-        $obj = \Model\usermodel($post);                  //instencier les model en lui donnant les donne
-        $obj->save();                                    //appeller la function du model  
-        
+        $postsecurise = Request::security($_POST);
     }
 
     public function loginAction () {
