@@ -1,6 +1,6 @@
 <h2>Register</h2>
-<a href="/user/register">Register DEUX</a>
-<form action="/user/register" method="post">
+<form action="/MVC_PiePHP/user/register" method="post">
+    <div>
         <input type="email" id="email" name="email" placeholder="Votre adresse mail">
         <input type="email" id="email2" name="email" placeholder="Valider votre adresse mail">
         <input type="password" id="password" name="password" placeholder="Votre mot de passe">
