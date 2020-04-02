@@ -1,50 +1,21 @@
 <?php
 namespace Model;
 
-class UserModel extends Entity {
+class UserModel extends \Core\Entity{
 
-    private static $_email;
-    private static $_password;
-    
-    public function create() {
-        $reqMail = self::$pdo->prepare('SELECT * FROM user WHERE email = ?');
-        $reqMail->execute(array($email));
-        $rowCountMail = $reqMail->rowCount();
-        if($rowCountMail == 0){
-            $reqUserName = self::$pdo->prepare('SELECT * FROM users WHERE username = ?');
-            $reqUserName->execute(array($userName));
-            $rowCountUserName = $reqUserName->rowCount();
-            if($rowCountUserName == 0){
-                $requete = self::$pdo->query("INSERT INTO users (email, password) VALUE(?, ?);");
-                $requete->execute(array($email, $password));
-            }
-            else{
-                echo 'Fail INSERT';
-            }
-        }
-        else{
-            echo 'fail SELECT';
-        }
-    }
+    public $email;
+    public $password;
 
-    public function read() {
-        $readAccount =  self::$pdo->prepare("SELECT * FROM users");
-        $readAccount->execute();
-        $array = $readAccount->fetchAll(PDO::FETCH_ASSOC);
-        return $array; 
-    }
+    // public function __construct() {
+    //     $this->orm = new \Core\ORM();
+    // }
 
-    public function update() {
-        $updateAccount = self::$pdo->query("UPDATE users SET email = ?, password = ? WHERE email = ?");
-        $updateAccount->execute(array($email, $password));
-    }
+    public function save() {
 
-    public function delete() {
-        $deleteAccount = self::$pdo->query("DELETE FROM users WHERE email = ?");
-        $deleteAccount->execute();
+        echo 'public function save() [OK] <br>';
+        echo '<pre>', var_dump($_POST), '</pre><br>';
+        // return \Core\ORM::create($this->table, $this->value);
     }
-    
-    public function read_all () {
-        $pdo->query();
-    }
+ 
 }
+
