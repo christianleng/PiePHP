@@ -1,7 +1,7 @@
 <?php
-namespace core;
+namespace Core;
 
-class Database {
+class Databases {
 
     private static $_pdo;
     private static $_host;
@@ -18,8 +18,8 @@ class Database {
     }
     
     public static function getDb () {
-        if (Database::getDb() == null) {
-            self::$pdo = new PDO('mysql:host="'.self::$_host.'";dbname="'.self::$_dbName.'";charset=utf8', '"'.self::$_username.'"', '"'.self::$_password.'"',
+        if (Databases::getDb() == null) {
+            self::$_pdo = new PDO('mysql:host="'.self::$_host.'";dbname="'.self::$_dbName.'";charset=utf8', '"'.self::$_username.'"', '"'.self::$_password.'"',
             array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
         }
         return self::$_pdo;
