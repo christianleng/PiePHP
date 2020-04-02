@@ -2,49 +2,58 @@
 namespace Controller;
 
 class UserController extends \Core\Controller{
-
-    public function appAction() {
-        echo "UserController/addAction [OK]";
-    }
-
-    public function salutAction () {
-        echo "j'ai reussi la route static [OK] / salutAction";
-    }
-    public function bonjourAction () {
-        echo "j'ai reussi la route static [OK] / bonjourAction";
-    }
-    public function indexAction () {
-        echo "UserController/indexAction [OK]";
-        // self::render("index");
-        // $user = new UserModel(["name" => "", "password" => ""]);
-        // $user->role = "Membre";
-        // $user->registerDate = Date();
-        // $user->create();
-    }
-    
     
     public function viewregisterAction() {
         echo self::render("register");
+    } 
+     
+    public function viewindexAction() {
+        echo self::render("index");
+ 
+    } 
+    public function viewloginAction() {
+        echo self::render("login");
+     
     }
-    
+    public function viewshowAction() {
+        echo self::render("show");
+     
+    }
+ 
 
-    
     public function registerAction() {
-        // echo "UserController/registerAction [OK]";
-        // echo self::render("register");
-        echo '<pre>', var_dump($_POST), '</pre>';
-        echo '<pre>', var_dump($post), '</pre>';
-        $postsecurise = Request::security($_POST);
+
+        // echo '<pre>', var_dump($_POST), '</pre>';
+        // echo "-------- PARTIE AVEC LA SECURISATION --------";
+        $postsecurise = \Core\Request::security($_POST);
+        echo '<pre>', var_dump($postsecurise), '</pre>';
+
+        // 1 : securite des donnees (Request.php)
+        // 2 : registerAction qui instancie les model en lui donnant les donnees qui sont securise grace a (Request.php)
+        // 3 : appeller la function du model genre $obj = \Model\userModel($postsecurise); $odj->save();  
+        // Voir a quoi va me SERVIRE -----> ENTITY <------
+
+        // $postsecurise = $this->_request->getQueryParams () ;
+        $user = new \Model\UserModel($postsecurise) ;
+        $user->save();
+        // if (!$user->id)  {
+        //     $user->save();
+        //     self::$_render = "Votre compte a ete cree." . PHP_EOL ;
+        // }
+
+    }
+    public function indexAction () {
+    
     }
 
     public function loginAction () {
-        echo "UserController/loginAction [OK]";
-        echo self::render("login");
+
     } 
 
     public function showAction() {
-        echo "UserController/showAction [OK]";
-        echo self::render("show");
+
     }
 
 }
+
+
