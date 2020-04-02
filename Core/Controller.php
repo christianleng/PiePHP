@@ -4,6 +4,11 @@ namespace Core;
 class Controller {
 
     private static $_render;
+    private static $_request;
+
+    public function __construc() {
+        self::$_request = new \Core\Request($_POST, $_GET);
+    }
 
     protected function render ($view, $scope = []) {
         extract($scope);
