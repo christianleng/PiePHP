@@ -10,21 +10,12 @@ abstract class Entity {
 
     public function __construct($params, $values = []) {
         $class = get_class($this);
-        if (array_key_exists('id', $params)) {
+        if (array_key_exists('id', $params) && count($params > 0)) {
             ORM::read($this->table, $params['id']);
         } else {
             ORM::read($params);
         }
-        /*
-        Si params contient une key 'id'
-            Instancier la classe avec read le ORM  ORM::read()  ///// UserModel::read()
-        Sinon
-            Instancie avec params
-
-        */
-        // Soit j'ai un id
-        // Soit un tableau associatif
-    } 
+    }
 
 }
 
