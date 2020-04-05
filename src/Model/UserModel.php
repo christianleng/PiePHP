@@ -6,15 +6,12 @@ class UserModel extends \Core\Entity{
     public $email;
     public $password;
 
-    // public function __construct() {
-    //     $this->orm = new \Core\ORM();
-    // }
-
     public function save() {
 
         echo 'public function save() [OK] <br>';
-        echo '<pre>', var_dump($_POST), '</pre><br>';
-        // return \Core\ORM::create($this->table, $this->value);
+        echo '<pre>', var_dump($postsecurise), '</pre><br>';
+        return \Core\ORM::create($table);
+        
     }
  
 }
