@@ -1,8 +1,14 @@
-<div>
-    <div name="email">
-        <p>L'adresse mail :</p>
+<form action="/user/show" method="post">
+    <div>
+        <label for="email">email :</label>
+        <input type="email" id="email" name="email">
     </div>
-    <div name="password">
-        <p>Le mot de passe :</p>
+    <div>
+        <label for="password">password :</label>
+        <input type="password" id="password" name="password">
     </div>
-</div>
+    <div>
+        <label for="submit">submit :</label>
+        <input type="submit" id="submit" name="submit">
+    </div>
+</form>
