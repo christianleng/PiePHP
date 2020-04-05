@@ -22,24 +22,16 @@ class UserController extends \Core\Controller{
  
 
     public function registerAction() {
-
-        // echo '<pre>', var_dump($_POST), '</pre>';
-        // echo "-------- PARTIE AVEC LA SECURISATION --------";
         $postsecurise = \Core\Request::security($_POST);
         echo '<pre>', var_dump($postsecurise), '</pre>';
 
-        // 1 : securite des donnees (Request.php)
-        // 2 : registerAction qui instancie les model en lui donnant les donnees qui sont securise grace a (Request.php)
-        // 3 : appeller la function du model genre $obj = \Model\userModel($postsecurise); $odj->save();  
-        // Voir a quoi va me SERVIRE -----> ENTITY <------
-
-        // $postsecurise = $this->_request->getQueryParams () ;
-        $user = new \Model\UserModel($postsecurise) ;
+        $params = $this->_request->security() ;
+        $user = new \Model\UserModel($params) ;
         $user->save();
-        // if (!$user->id)  {
-        //     $user->save();
-        //     self::$_render = "Votre compte a ete cree." . PHP_EOL ;
-        // }
+        if (!$user->id)  {
+            $user->save();
+            self::$_render = "Votre compte a ete cree." . '<br>' ;
+        }
 
     }
     public function indexAction () {
