@@ -22,16 +22,15 @@ class UserController extends \Core\Controller{
  
 
     public function registerAction() {
-        $postsecurise = \Core\Request::security($_POST);
-        echo '<pre>', var_dump($postsecurise), '</pre>';
+        $params = \Core\Request::security($_POST);
+        echo '<pre>', var_dump($params), '</pre>';
 
-        $params = $this->_request->security() ;
-        $user = new \Model\UserModel($params) ;
-        $user->save();
-        if (!$user->id)  {
+        $user = \Model\UserModel::save($params) ;
+        if (!$user->id)  {       
+            echo "[OK] DANS LE IF" . '<br>';
             $user->save();
-            self::$_render = "Votre compte a ete cree." . '<br>' ;
-        }
+            self::$_render = "Votre compte a ete cree." . PHP_EOL ;
+        }   
 
     }
     public function indexAction () {
