@@ -4,44 +4,45 @@ namespace Core;
 
 class Entity {
 
-    protected $params;
-    public $tables;
+    public $params;
+    public $table;
 
-    public function __construct($params) {
+    public function __construct($params, $table) {
 
-        $tables = str_replace('model', '', trim(stripslashes(strlolower(get_class($this)))));
-        
+        $table = str_replace('model', '', trim(stripslashes(strlolower(get_class($this)))));
         if (array_key_exists('id', $params) && count($params > 0)) {
-            $val = ORM::read($this->table, $params['id']);
+            // Soit j'ai un id
+            $this->getAllAttributes(ORM::read($table, $params['id']));
         } else {
-            $val = $params;
+            // Soit un tableau associatif
+            $this->getAllAttributes($params);
         }
-
     }
 
     public function getAllAttributes($params) {
-        foreach ($params as $key -> $val) {
-            $this->$key = $val;
+        foreach ($params as $key => $value) {
+            $this->$key = $value;
         }
     }
+
     public function create() {
-        return ORM::create($tables, $this->relation);
+        return ORM::create($table, $params);
     }
     
     public function read($id) {
-        return ORM::read($tables, $id, $this->relation);
+        return ORM::read($table, $params);
     }
 
     public function update($id) {
-        return ORM::update($tables, $id ,$this->relation);
+        return ORM::update($table, $params);
     }
 
     public function delete ($id) {
-        return ORM::delete($tables, $id ,$this->relation);
+        return ORM::delete($table, $params);
     }
 
     // public function find ($id) {
-    //     return ORM::find($tables, $id ,$this->relation);
+    //     return ORM::find($table, $id ,$params);
     // }
 }
  
