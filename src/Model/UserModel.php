@@ -9,8 +9,12 @@ class UserModel extends \Core\Entity{
     public function save() {
 
         echo 'public function save() [OK] <br>';
-        echo '<pre>', var_dump($postsecurise), '</pre><br>';
-        return \Core\ORM::create($table);
+        echo '<pre>', var_dump($params), '</pre><br>';
+        echo 'public function save() [OK] <br>';
+
+        print_r($params) . '<br>';
+
+        \Core\ORM::create($table, $params);
         
     }
  
