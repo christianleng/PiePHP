@@ -1,29 +1,27 @@
 <?php
-
 namespace Core;
 
-class Entity {
-
-    public $params;
-    public $tableau;
-    public $attribut;
+class Entity{
+    
+    public static $attribut;
     public $reAtttribut;
-    public $table;
+    public static $_table;
 
-    public function __construct($params, $tableau = []) {
+    public function __construct($params, $tableau = [], $_table) {
 
-        $table = str_replace('UserModel', 'users', trim(stripslashes(strlolower(get_class($this)))));
+        $leNom = get_class($this);
+        self::$_table = str_replace('model', '', stripslashes(strtolower($leNom)));
+        echo self::$_table;
+
         if (array_key_exists('id', $params) && count($params > 0)) {
             // Soit j'ai un id
-            $this->getAllAttributes(ORM::read($table, $params));
+            $this->getAllAttributes(ORM::read(self::$_table, $params));
         } else {
             // Soit un tableau associatif
             $this->getAllAttributes($params);
         }
 
-        // Créer pour chaque attribut fourni dans le tableau associatif un attribut public dont le nom sera fourni
-        // par la clé et la valeur fourni par la valeur de l’entrée du tableau.
-        $att = get_object_vars($this);
+        self::$attribut = get_object_vars($this);
         $reAttribut = $tableau;
     }
 
@@ -33,21 +31,24 @@ class Entity {
         }
     }
 
-    public static function create($table, $params) {
-        echo "bonjourdosghu"; 
-        return \Core\ORM::create($table, $params);
+    public static function create($_table, $attribut) {
+        echo "bonjour Entity [OK]";
+        return \Core\ORM::create(self::$_table, self::$attribut);
     }
     
     public function read($id) {
-        return \Core\ORM::read($table, $params);
+        return \Core\ORM::read($this->table, $this->attribut);
     }
 
     public function update($id) {
-        return \Core\ORM::update($table, $params);
+        return \Core\ORM::update($this->table, $this->attribut);
     }
 
     public function delete ($id) {
-        return \Core\ORM::delete($table, $params);
+        return \Core\ORM::delete($this->table, $this->attribut);
     }
+
+    // public function find ($id) {
+    //     return ORM::find($table, $id ,$params);
+    // }
 }
- 
